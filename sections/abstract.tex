@@ -1,16 +1,16 @@
 
 \begin{abstract}
 
-Determing the true accuracy of a multimedia classifier often requires estimating performance on unseen test sets based 
-on the performance on a known data set.
-This can determine whether a training set amply informs a classifier of the data distribution, or whether high accuracy on a test set is more than a fluke.
-Bootstrapping, a statistical method to quantify uncertainty, uncovers the uncertainty of a classifier's performance, yet often demands considerable computational resources, a problem compounded by today's sizable multimedia datasets (citation?). 
-Large bootstrapping multimedia applications can become essentially intractable in common productivity languages such as Python and Matlab, as shown later in the paper. 
+When developing a multimedia classification system in preparation for an evaluation such as TrecVid MED or MediaEval, one usually has to guess the expected error on the evaluation set by measuring performance on a development set before blindly submitting the results. 
+The approach leaves high uncertainty about how well the development set generalizes until the final results of the evaluation are revealed. 
+Mathematical statistics can address the problem with bootstrapping, which is widely known as a method to uncover the uncertainty or significance of a classifier's performance. 
+Bootstrapping requires considerable computational resources, a problem compounded by today's sizable multimedia datasets known as Big Data. 
+Bootstrapping multimedia applications can easily become essentially intractable on datasets of several 100k videos, like TrecVID MED.
 
-We propose a methodology to estimate classifier performance that relies on the ability to generate efficient, distributed bootstrapping applications from serial Python. 
-This methodology arises from SEJITS (Selective Embedded Just-In-Time Specialization) \cite{Kamil:EECS-2013-1}, an approach to convert programs written in domain-specific languages (DSELs) to programs written in languages suitable for high performance or parallel computation. 
+In this paper, we propose a methodology to estimate classifier performance that relies on the ability to generate efficient, distributed bootstrapping applications from serial Python. 
+The methodology arises from SEJITS (Selective Embedded Just-In-Time Specialization) \cite{Kamil:EECS-2013-1}, an approach to convert programs written in domain-specific languages (DSELs) to programs written in languages suitable for high performance or parallel computation. 
 Utilizing an already made DSEL compiler \cite{pbirsinger2013} for a recently developed bootstrapping algorithm, we generate scalable, bootstrapping code suitable for the Spark \cite{zaharia2010spark} cluster computing system. 
 This enables us to code in native Python adhering to the predefined DSEL a bootstrapping application that estimates the equal error rate (EER) of a multimedia classifier; the generated code executes in a cluster, garnering orders of magnitude speedup over the naive Python code. 
-We then explore the effects of varying the number of positives in both training and test sets obtained from the TRECVID MED 2012 dataset, surveying the flavor of computations now made accessible to non-performance programmers. 
+We then explore the effects of varying the number of positives in both training and test sets obtained from the TRECVID MED 2012 dataset, surveying the flavor of computations now made accessible to non-performance programmers. (add one sentence here on findings of experiments)
 
 \end{abstract} 
