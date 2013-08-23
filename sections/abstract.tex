@@ -1,18 +1,16 @@
 
 \begin{abstract}
-Test set performance determines multimedia classifier rankings, but some results can vary widely in significance, understood here to mean consistent reproducibility on similar test sets. Results that vary widely between similar test sets bear little importance, as any quality result cannot be consistently repeated. Bootstrapping, a statistical method to quantify uncertainty, uncovers how "significant" a classification result is, yet often requires considerable computational resources, a problem compounded by large datasets and multiple runnings. Large bootstrapping applications become essentially intractable in common productivity languages such as Python and Matlab, as shown later in the paper. 
 
-We propose a methodology to determine classification significance that relies on the ability to generate efficient, distributed bootstrapping applications from serial Python. This methodology relies on SEJITS (Selective Embedded Just-In-Time Specialization) \cite{kamil2011asp}, an approach to convert programs written in domain-specific languages (DSELs) to programs written in languages suitable for high performance or parallel computation. Utilizing an already made DSEL compiler \cite{pbirsinger2013} for a recently developed bootstrapping algorithm, we generate scalable, bootstrapping code suitable for the Spark \cite{zaharia2010spark} cluster computing system. This enables us to code in native Python adhering to the predefined DSEL a bootstrapping application that calculates the equal error rate (EER) of a multimedia classifier; the generated code executes in a cluster, garnering orders of magnitude speedup over the naive Python code. We then explore the effects on multimedia classifier significance of varying the number of positives in both the training and test sets, indicating the flavor of computations now made accessible to non-performance programmers. 
-% outline of problem:
-% what is significance ?
-% why want significance ? who cares ?
-% some multimedia classification results may not be statistically significant...
-% how to check if significant ?
-% why need efficiency ?
-% description efficient methodology proposed ?
-% findings using methodology ?
+Determing the true accuracy of a multimedia classifier often requires estimating performance on unseen test sets based 
+on the performance on a known data set.
+This can determine whether a training set amply informs a classifier of the data distribution, or whether high accuracy on a test set is more than a fluke.
+Bootstrapping, a statistical method to quantify uncertainty, uncovers the uncertainty of a classifier's performance, yet often demands considerable computational resources, a problem compounded by today's sizable multimedia datasets (citation?). 
+Large bootstrapping multimedia applications can become essentially intractable in common productivity languages such as Python and Matlab, as shown later in the paper. 
 
-% importance: decouples performance and application knowledge sets ..
-% other specializers possible to do similar things .. 
+We propose a methodology to estimate classifier performance that relies on the ability to generate efficient, distributed bootstrapping applications from serial Python. 
+This methodology arises from SEJITS (Selective Embedded Just-In-Time Specialization) \cite{Kamil:EECS-2013-1}, an approach to convert programs written in domain-specific languages (DSELs) to programs written in languages suitable for high performance or parallel computation. 
+Utilizing an already made DSEL compiler \cite{pbirsinger2013} for a recently developed bootstrapping algorithm, we generate scalable, bootstrapping code suitable for the Spark \cite{zaharia2010spark} cluster computing system. 
+This enables us to code in native Python adhering to the predefined DSEL a bootstrapping application that estimates the equal error rate (EER) of a multimedia classifier; the generated code executes in a cluster, garnering orders of magnitude speedup over the naive Python code. 
+We then explore the effects of varying the number of positives in both training and test sets obtained from the TRECVID MED 2012 dataset, surveying the flavor of computations now made accessible to non-performance programmers. 
 
 \end{abstract} 
