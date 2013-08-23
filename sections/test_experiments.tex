@@ -1,9 +1,13 @@
 \section{Experiments Varying Test Set Size}
 
+We vary the number of test positives for each event in test set, arbitrarily halving the number of positives each time (number of positives range from 15 to 234). 
+A high standard deviation from BLB on a test set indicates that the result on this test set may not be significant, and that it could sway largely on similar test sets. 
+Contrarily, a low standard deviation from BLB indicates that the classification accuracy on similar test sets will likely be comparable, and even that the size of the test set may be reduced. 
 
-important to determine significance of test result 
-	if fluke or not 
-	
-some test sets can easily be reduced in size
-to reduce computation time and still have roughly same significance 
 
+
+--Will soon show here graph of actual EER on each of the test sets (full, 1/2 positives, 1/4 positives, 1/8 positives) for each of the 20 events
+
+--Will soon show here graph of standard deviations of EER estimated on each of the test sets for each of the 20 events
+
+discussion of at what points test set is too big/small from results ..
