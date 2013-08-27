@@ -4,10 +4,10 @@ The propoposed methodology enables multimedia domain experts to estimate multime
 Multimedia domain experts need only adhere to the specified DSEL for BLB, for which they must define with a modest subset of Python the statistical function to be estimated on the data set, along with the reducer function (e.g. standard deviation) that measures the error on the estimate.
 More detailed information about the DSEL, or the subset of Python allowed can be found in \cite{pbirsinger2013}, but as an overview, all basic flow control statements, lists, variable assignments, arithmetic operations, basic type conversions, and simple list and string operations (e.g. \texttt{len, range, split}) are available. 
 
-For this paper's experiments, we choose to have the statistical function compute the equal error rate of a multimedia classifier on a set of feature vectors. 
+For this paper's experiments, we choose to have the statistical function compute the EER of a multimedia classifier on a set of feature vectors. 
 The reducer function, which measures the error on the estimate, is the standard deviation. 
 It would, however, be simple to modify the statistical function to estimate an alternate measure of classification performance, such as the misdetection rate at a certain false alarm rate. 
-Similarly, the error estimate function could instead indicate uncertainty with a confidence interval.  
+Similarly, the error estimate function could instead indicate uncertainty in terms of a confidence interval.  
 
 The already existing BLB DSEL compiler consumes the BLB Python application, and emits
 a scalable, distributed BLB application runnable on the Spark cluster computing system. 

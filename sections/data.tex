@@ -1,7 +1,7 @@
 \section{Data Set and Classification System Description}
 
 The data used in the following experiments is a subset of the NIST TRECVID MED 2012 corpus, which comprises 150,000 consumer-produced videos of around three minutes each. 
-We select training sets of roughly 100 videos each for 20 different "events," or classes, that range from changing a car tire to making a sandwich. 
+We select training sets of roughly 100 videos each for 20 different ``events," or classes, that range from changing a car tire to making a sandwich. 
 Classifying based on audio properties alone, we extract feature vectors with an ivector system (citation?), and build machine learning models with a binary support vector machine \cite{svm}. 
 Our primary test set consists of 26,399 files, of which 24,920 files do not correspond to any event while the number of positives for each event varies between 15 and 234.
 

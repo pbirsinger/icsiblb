@@ -1,11 +1,9 @@
 
 \begin{abstract}
 
-When developing a multimedia classification system in preparation for an evaluation such as TrecVid MED or MediaEval, one usually has to guess the expected error on the evaluation set by measuring performance on a development set before blindly submitting the results. 
-The approach leaves high uncertainty about how well the development set generalizes until the final results of the evaluation are revealed. 
-Mathematical statistics can address the problem with bootstrapping, which is widely known as a method to uncover the uncertainty or significance of a classifier's performance. 
-Bootstrapping requires considerable computational resources, a problem compounded by today's sizable multimedia datasets known as Big Data. 
-Bootstrapping multimedia applications can easily become essentially intractable on datasets of several 100k videos, like TrecVID MED.
+When developing a multimedia classification system in preparation for an evaluation such as TRECVID MED or MediaEval, one typically must estimate the error on the evaluation data set from the performance on the development data set. 
+Statistical bootsrapping reveals the uncertainty of the estimate of a classifier's performance, yet often requires considerable computational resources, a problem compounded by many of today's sizable multimedia datasets.
+Bootstrapping multimedia applications can become essentially intractable on datasets of several 100k videos, e.g TRECVID MED, particularly with common productivity languages such as Python or Matlab.
 
 In this paper, we propose a methodology to estimate classifier performance that relies on the ability to generate efficient, distributed bootstrapping applications from serial Python. 
 The methodology arises from SEJITS (Selective Embedded Just-In-Time Specialization) \cite{Kamil:EECS-2013-1}, an approach to convert programs written in domain-specific languages (DSELs) to programs written in languages suitable for high performance or parallel computation. 
