@@ -2,13 +2,13 @@
 \begin{abstract}
 
 When developing a multimedia classification system in preparation for an evaluation such as TRECVID MED or MediaEval, one typically must estimate the error on the evaluation data set from the performance on the development data set. 
-Statistical bootsrapping reveals the uncertainty of the estimate of a classifier's performance, yet often requires considerable computational resources, a problem compounded by many of today's sizable multimedia datasets.
-Bootstrapping multimedia applications can become essentially intractable on datasets of several 100k videos, e.g TRECVID MED, particularly with common productivity languages such as Python or Matlab.
+Statistical bootsrapping reveals the uncertainty of the estimate of a classifier's performance, yet often requires considerable computational resources, a problem compounded by today's sizable multimedia datasets.
+Large bootstrapping multimedia applications, particularly when written in common productivity languages such as Python or Matlab, can become essentially intractable.
 
 In this paper, we propose a methodology to estimate classifier performance that relies on the ability to generate efficient, distributed bootstrapping applications from serial Python. 
 The methodology arises from SEJITS (Selective Embedded Just-In-Time Specialization) \cite{Kamil:EECS-2013-1}, an approach to convert programs written in domain-specific languages (DSELs) to programs written in languages suitable for high performance or parallel computation. 
-Utilizing an already made DSEL compiler \cite{pbirsinger2013} for a recently developed bootstrapping algorithm, we generate scalable, bootstrapping code suitable for the Spark \cite{zaharia2010spark} cluster computing system. 
-This enables us to code in native Python adhering to the predefined DSEL a bootstrapping application that estimates the equal error rate (EER) of a multimedia classifier; the generated code executes in a cluster, garnering orders of magnitude speedup over the naive Python code. 
-We then explore the effects of varying the number of positives in both training and test sets obtained from the TRECVID MED 2012 dataset, surveying the flavor of computations now made accessible to non-performance programmers. (add one sentence here on findings of experiments)
+Utilizing an already made DSEL compiler \cite{pbirsinger2013} for a recently developed bootstrapping algorithm, we generate from native Python code a scalable, distributed bootstrapping application that estimates the equal error rate (EER) of a multimedia classifier; the generated code executes in a cluster, garnering orders of magnitude speedup over the original Python code.
+We then explore the effects of varying the number of positives in both training and test sets obtained from the TRECVID MED 2012 dataset, surveying the flavor of computations now made accessible to non-performance programmers. 
+(add one sentence here on findings of experiments)
 
 \end{abstract} 
