@@ -1,0 +1,29 @@
+
+\section{Experiments}
+
+\subsection{Predicting Performance on MED Dataset}
+
+We estimate video detection system performance on a subset of the MED dataset from performance on the Kindred dataset.
+Classifying based on audio properties alone, we extract feature vectors from all videos with an i-vector system (citation?).
+We then construct over 100 different training sets each containing the entirety of the roughly 100 training positives for each event but varying in the set of negatives used. The different negative sets are constructed from taking different representative samples from a k-means-clustering of the entire 4,869 training negatives provided.
+We next utilize SVM-light \cite{svm}, an online support vector machine (SVM) library, to construct the training models for each of the training sets and to evaluate the models on the Kindred dataset in terms of EER, recording the best EER for each event.
+
+To estimate the variability of the EERs, we run BLB on the Kindred dataset with 30 subsamples, 100 bootstraps, and a $\gamma$ of 0.9, parameters empirically selected such that the different runnings of BLB result in consistency to at least the hundredths place in the standard deviation for each event. 
+The standard deviations obtained from BLB indicate the variation in EERs to be expected on datasets similar to Kindred, such as our primary test set which, although somewhat larger, contains videos that are sampled from the same underlying distribution, with even a slight overlap. 
+To measure comparable performance on the primary test set, we again select a favorable training set in the manner described before (experimenting with the same different sets of training negatives) and record the EERs for the best training set. 
+
+\subsection{Comparison to Na\"ive Python}
+
+We compare the performance of the generated Spark code to that of na\"{i}ve Python, to motivate use of this methodology. 
+We obtain runtimes for a BLB application that receives video classification scores and for a BLB application that receives video feature vectors and SVM models in order to compute the classification scores on the fly. 
+Both applications proceed to compute the classifier's EER for each event, and output the standard deviations that quantify uncertainty on the EER estimates. 
+To simulate a ``large" bootstrapping application, we duplicate the input scores (and feature vectors) from the primary test set five times over to create an input of 131,995 scores (or feature vectors), still tens of thousands of items less than the entire MED corpus contains. 
+We run every configuration at least three times (except for the Python application that computes the scores, which we run twice), and take the average runtime. 
+
+For the application receiving the scores, we again use parameters of 30 subsamples, 100 bootstraps, and a $\gamma$ of .9. We run the Python version of the application on 1 Amazon EC2 \cite{ec2} High-Memory On-Demand Instance (m2.4xlarge) and we run the distributed version of the application on 7 (1 master, 6 slave nodes) Amazon EC2 High-Memory On-Demand Instances (m2.4xlarge). 
+
+For the application computing the scores, we use parameters of 2 subsamples, 5 bootstraps, and a $\gamma$ of .9 (in light of the lengthy Python runtimes). We run the Python version of the application on 1 Amazon EC2 \cite{ec2} High-Memory On-Demand Instance (m2.4xlarge) and we run the distributed version of the application on 13 (1 master, 12 slave nodes) Amazon EC2 High-Memory On-Demand Instances (m2.4xlarge). We further test the distributed version with parameters of 20 subsamples, 50	bootstraps, and a $\gamma$ of 0.9 with the same number of nodes. 
+
+
+
+

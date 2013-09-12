@@ -1,0 +1,9 @@
+\section{Classification Task and Data Set Background}
+Given the vast, expanding supply of user-produced multimedia videos, retrieving videos adhering to a particular description becomes essential in order to fully utilize large collections. 
+Video detection systems that retrieve specified types of videos can be evaluated with a video event detection task in which they must determine whether videos belong to semantically defined events (e.g. wedding ceremony or making a sandwich). 
+
+The data used in the following experiments is a subset of the NIST TRECVID MED 2013 corpus, which comprises 160,000 consumer-produced videos of around three minutes each.
+For training, we select roughly 100 videos belonging to each of the 20 different ``events," or classes, that range from changing a car tire to making a sandwich, and the 4,869 negative videos that belong to no event. 
+Our primary test set consists of 26,399 files, of which 24,920 files do not correspond to any event while the number of positives for each event varies between 15 and 234. 
+Additionally, we use the Kindred set, containing 14,249 files of which 12,770 are negatives, as a secondary test set. Before describing the experiments with this data, we describe in the next section a proposed methodology to accelerate the estimation of video detection systems.
+

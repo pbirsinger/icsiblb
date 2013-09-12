@@ -1,10 +1,11 @@
 \section{Methodology Description}
 
-The propoposed methodology enables multimedia domain experts to estimate multimedia classifier performance in Python, without worrying about making the code run efficiently. 
-Multimedia domain experts need only adhere to the specified DSEL for BLB, for which they must define with a modest subset of Python the statistical function to be estimated on the data set, along with the reducer function (e.g. standard deviation) that measures the error on the estimate.
-More detailed information about the DSEL, or the subset of Python allowed can be found in \cite{pbirsinger2013}, but as an overview, all basic flow control statements, lists, variable assignments, arithmetic operations, basic type conversions, and simple list and string operations (e.g. \texttt{len, range, split}) are available. 
+We propose a methodology to more efficiently estimate video detection systems' performance on event detection tasks; the methodology enables coding of bootstrapping applications to quantify uncertainty on performance estimates in Python, yet results in scalable, distributed code. 
+When coding the bootstrapping application in Python, multimedia experts
+need only adhere to the specified DSEL for BLB, from which they must define with a modest subset of Python the statistical function to be estimated on the data set, along with the reducer function (e.g. standard deviation) that measures the error on the estimate.
+More detailed information about the DSEL, or the subset of Python allowed can be found in \cite{pbirsinger2013}, but as an overview, all basic flow control statements (e.g. \texttt{for, while, if}), singularly-typed lists, variable assignments, arithmetic operations, basic type conversions, and simple list and string operations (e.g. \texttt{len, range, split}) are available. 
 
-For this paper's experiments, we choose to have the statistical function compute the EER of a multimedia classifier on a set of feature vectors. 
+For this paper's experiments, we choose to have the statistical function compute the EER of a multimedia classifier on a set of feature vectors, alternating between passing in the classification scores of each file, and computing them on the fly when given the models and extracted file feature vectors. 
 The reducer function, which measures the error on the estimate, is the standard deviation. 
 It would, however, be simple to modify the statistical function to estimate an alternate measure of classification performance, such as the misdetection rate at a certain false alarm rate. 
 Similarly, the error estimate function could instead indicate uncertainty in terms of a confidence interval.  
@@ -13,10 +14,10 @@ The already existing BLB DSEL compiler consumes the BLB Python application, and 
 a scalable, distributed BLB application runnable on the Spark cluster computing system. 
 Spark, similar to Map-Reduce, operates on clusters of commodity hardware, such as those purchasable with
 Amazon's EC2. Multimedia feature vectors, machine learning models, classification scores, or other input
-data is read from the Hadoop File System (HDFS) to support large input data sizes of up to hundreds of GBs. 
+data is read from the Hadoop File System (HDFS) to support the large of multimedia datasets. 
 
-(should talk about in here how we can also run pure python for debugging or if problem size isn't large enough to need to run in cluster .. 
+The Python code can similarly be mapped to backends besides Spark, namely OpenMP and Cilk, enabling efficient parallelism on a single node, further described in \cite{pbirsinger2013}. We do not utilize these alternate backends in the experiments because the less-general DSEL that they compile does not support the entirety of our applications.  
+The pure Python code can additionally be run as unoptimized Python instead of being run on Spark, which is useful for debugging and small applications. 
+This reusability of simple Python is convenient, since many bootstrapping applications, especially when file classification scores need not be computed, can run in a reasonable time in pure Python. However, for the larger applications as we later show, relying on the generated code is a must.
 
-probably most bootstrapping applications where scores are inputted will be
-fine in just python, except for the absolutely most taxing, or where scores need
-to be computed in python, then quickly out of reach ... scalability  )
+%%SHORTEN THIS ...........

@@ -1,16 +1,26 @@
 \section{Introduction}
+User-produced multimedia data has grown abundant recently with the ubiquity of recording devices and online sharing websites, yet these files must be able to be retrieved easily for them to have value. 
+Video detection systems that analyze and fetch multimedia files solve this problem of video event detection, or the classification of videos with regards to semantically defined events (e.g. marriage proposals or changing a car tire). 
 
-Estimating a classifier's performance on unseen data sets based on its performance on a known data set can reveal useful information about the training sets, test sets, and classifier. A large confidence interval on the accuracy based on the training data can indicate that the actual accuracy on a test set may deviate wildly from the accuracy on the training set whereas a low standard deviation on the accuracy based on the test data can indicate that the accuracy on other, similar test sets from the same distribution will likely be comparable. 
-
-Fortunately, speculation of classifier performance is a well understood problem \cite{fukunaga1989estimation}. 
+Preparing such multimedia classification systems often requires estimating the system's performance on unseen consumer-produced videos based on its performance on known consumer-produced videos. Fortunately, speculation of classifier performance is a well understood problem \cite{fukunaga1989estimation}. 
 Extensive investigation of bootstrapping and its variations \cite{efron1979bootstrap,jain1987bootstrap, chernick1985application, sahiner2008classifier} has identified bootstrapping as a prime, ableit not perfect \cite{isaksson2008cross},
-solution to this problem. We shift the focus in this paper, however, onto using bootstrapping to estimate the performance of specifically multimedia classifiers. 
+solution to this problem. We focus, however, on using bootstrapping to estimate the performance of specifically multimedia classifiers, and doing so efficiently for large applications.
 
-When dealing with multimedia data, particularly given the increasing size of modern datasets such as the TRECVID MED 2012 dataset, efficiency becomes paramount. 
-We turn to a recently developed bootstrapping method, the Bag of Little Bootstraps (BLB)\cite{kleiner2012big,kleiner2011scalable}, that is designed to run quickly in a distributed setting.
-An already existing DSEL compiler converts input Python BLB applications into scalable BLB applications able to run on the Spark cluster computing system \cite{pbirsinger2013}. 
+When dealing with multimedia data, particularly given the increasing size of modern datasets such as the TRECVID MED 2013 dataset, efficiency becomes paramount. 
+We turn to a recently developed bootstrapping method, the Bag of Little Bootstraps (BLB)\cite{kleiner2012big,kleiner2011scalable}, that is designed to run quickly in a distributed setting on large amounts of data.
+An already existing DSEL compiler \cite{pbirsinger2013} converts input Python BLB applications into scalable BLB applications able to run on the Spark cluster computing system \cite{zaharia2010spark}. 
 This DSEL compiler makes use of Selective Embedded Just-In-Time Specialization (SEJITS) \cite{Kamil:EECS-2013-1}, an approach for converting DSELs in productivity level languages to high performance efficiency language (e.g. C++ or Cilk) code. 
 
-Here, we code in this already existing Python DSEL a BLB application which estimates the standard deviation of the equal error rate (EER) of a multimedia classifier. We generate scalable code to run on a cluster to probe the effects of varying training and test set sizes, with data sets from the TRECVID MED 2012 datasest. We investigate the relationship between the training set sizes of these consumer-produced videos and the error estimation on test sets in order to reasonably estimate the necessary minimum size of training sets. We similarly vary the test size to attempt to answer how many consumer-produced videos from this set are needed to provide a reasonable measure of significance to a classification result. 
+Here, we code in this already existing Python DSEL a BLB application which estimates the standard deviation of the equal error rate (EER) of a video detection system. The generated distributed code efficiently predicts the performance on a subset of user-produced videos from the TRECVID MED 2013 dataset from performance on the Kindred dataset. 
+We find that the predicted performance results generally fall in line with the error bounds obtained, demonstrating that despite high variability in consumer-produced videos, reasonable predictions regarding performance can still be made. 
 
-These experiments characterize our proposed methodology--utilizing a bootstrapping DSEL compiler to generate efficient bootstrapping multimedia classification applications. This methodology now makes accessible an array of multimedia classifier estimation computations for those who never wish to leave the world of Python but previously were forced to, as confirmed by our timing results for naive Python. Moreover, this methodology templates the mechanism through which further useful yet demanding, multimedia-analysis computations can be made attainable for non-performance programmers. 
+
+Finally, we further motivate usage of our methodology by comparing runtimes of large BLB applications with the original, serial Python code and the generated distributed code run on Amazon EC2 clusters. By demonstrating a difference of over two orders of magnitude between the different versions, it becomes clear that this methodology makes accessible an array of multimedia classifier estimation computations for those who never wish to leave the world of Python but previously were forced to.
+
+
+
+
+% combine last two paragraphs, 
+% take out most of last paragraph
+% make emphasis on multimedia stuff 
+% not the classification stuff so much 
