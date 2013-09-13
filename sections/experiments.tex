@@ -4,11 +4,11 @@
 \subsection{Predicting Performance on the MED Dataset}
 
 We estimate video detection system performance on a subset of the MED dataset from performance on the Kindred dataset.
-Classifying based on audio properties alone, we extract feature vectors from all videos with an i-vector system (citation?).
+Classifying based on audio properties alone, we extract feature vectors from all videos using an i-vector system \cite{elizalde2013ivector}.
 We then construct over 100 different training sets each containing the entirety of the roughly 100 training positives for each event but varying in the set of negatives used. The different negative sets are constructed from taking different representative samples from a k-means-clustering of the entire 4,869 training negatives provided.
 We next utilize SVM-light \cite{svm}, an online support vector machine (SVM) library, to construct the training models for each of the training sets and to evaluate the models on the Kindred dataset in terms of EER, recording the best EER for each event.
 
-To estimate the variability of the EERs, we run BLB on the Kindred dataset with 30 subsamples, 100 bootstraps, and a $\gamma$ of 0.9, parameters empirically selected such that the different runnings of BLB result in consistency to at least the hundredths place in the standard deviation for each event. 
+To estimate the variability of the EERs, we run BLB 5 times on the Kindred dataset with 30 subsamples, 100 bootstraps, and a $\gamma$ of 0.9 and average the results. We have empirically selected these parameters to ensure that the EERs from different BLB runnings match in the at least hundredths digit--most EERs obtained do agree to this standard with these parameters, but do not as well with reduced parameter sizes. 
 The standard deviations obtained from BLB indicate the variation in EERs to be expected on datasets similar to Kindred, such as our primary test set which, although somewhat larger, contains videos that are sampled from the same underlying distribution, with even a slight overlap. 
 To measure comparable performance on the primary test set, we again select a favorable training set in the manner described before (experimenting with the same different sets of training negatives) and record the EERs for the best training set. 
 
@@ -16,6 +16,7 @@ To measure comparable performance on the primary test set, we again select a fav
 
 We compare the performance of the generated Spark code to that of na\"{i}ve Python, to motivate use of this methodology. 
 We obtain runtimes for a BLB application that receives video classification scores and for a BLB application that receives video feature vectors and SVM models in order to compute the classification scores on the fly. 
+In the previous section's experiments, there is no need to recompute the scores for each bootstrap, and so they can be passed in, but one can imagine classification applications where the file classification scores depend on the other files in the set.
 Both applications proceed to compute the classifier's EER for each event, and output the standard deviations that quantify uncertainty on the EER estimates. 
 To simulate a ``large" bootstrapping application, we duplicate the input scores (and feature vectors) from the primary test set five times over to create an input of 131,995 scores (or feature vectors), still tens of thousands of items less than the entire MED corpus contains. 
 
